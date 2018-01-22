@@ -29,7 +29,34 @@ export default class MdxQuerySettings extends Component {
         });
     }
 
+    renderTable(data) {
+        if (data) {
+            const {header, body} = data;
+            return (
+                <table>
+                    <thead>
+                    {this.renderRows(header.rows)}
+                    </thead>
+                    <tbody>
+                    {this.renderRows(body.rows)}
+                    </tbody>
+                </table>
+            );
+        }
+    }
+
+    renderRows(rows) {
+        return rows.map((row, index) =>
+            <tr key={index}>
+                {row.cells.map((cell, index) =>
+                    <th key={index}>{cell.label}</th>)}
+            </tr>
+        );
+    }
+
+
     render() {
+        const {queryResult} = this.state;
         return (
             <div>
                 <FormGroup>
@@ -46,7 +73,8 @@ export default class MdxQuerySettings extends Component {
                         RUN QUERY
                     </Button>
                     <br/>
-                    <textarea value={this.state.queryResult} style={{width:'100%', minHeight:'60px'}} />
+                    {this.renderTable(queryResult)}
+                    <textarea value={queryResult} style={{width: '100%', minHeight: '60px'}}/>
                 </FormGroup>
             </div>
         );
