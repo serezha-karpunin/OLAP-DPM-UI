@@ -1,0 +1,13 @@
+.pivot-table {
+    width: 100%;
+    text-align: center;
+}
+
+.pivot-table thead {
+    background: #e8e8e8;
+    /*box-shadow: 0 4px 8px -2px rgba(122,122,122,0.5);*/
+}
+
+.pivot-table th,td {
+    padding: 5px;
+}

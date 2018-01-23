@@ -3,6 +3,7 @@ import Textarea from 'rambler-ui/Textarea'
 import FormGroup from 'rambler-ui/FormGroup'
 import Button from 'rambler-ui/Button'
 import RequestService from '../service/RequestService';
+import PivotTable from "./PivotTable";
 
 export default class MdxQuerySettings extends Component {
 
@@ -27,33 +28,11 @@ export default class MdxQuerySettings extends Component {
         RequestService.sendQuery(this.state.query).then(data => {
             this.setState({queryResult: data});
         });
-    }
 
-    renderTable(data) {
-        if (data) {
-            const {header, body} = data;
-            return (
-                <table>
-                    <thead>
-                    {this.renderRows(header.rows)}
-                    </thead>
-                    <tbody>
-                    {this.renderRows(body.rows)}
-                    </tbody>
-                </table>
-            );
-        }
+        RequestService.sendOtherQuery(this.state.query).then(html => {
+            this.setState({html: html})
+        })
     }
-
-    renderRows(rows) {
-        return rows.map((row, index) =>
-            <tr key={index}>
-                {row.cells.map((cell, index) =>
-                    <th key={index}>{cell.label}</th>)}
-            </tr>
-        );
-    }
-
 
     render() {
         const {queryResult} = this.state;
@@ -72,9 +51,9 @@ export default class MdxQuerySettings extends Component {
                         onClick={this.onClick}>
                         RUN QUERY
                     </Button>
-                    <br/>
-                    {this.renderTable(queryResult)}
+                    <PivotTable data={queryResult}/>
                     <textarea value={queryResult} style={{width: '100%', minHeight: '60px'}}/>
+                    <div dangerouslySetInnerHTML={{__html: this.state.html}}/>
                 </FormGroup>
             </div>
         );

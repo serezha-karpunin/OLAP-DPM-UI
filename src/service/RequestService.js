@@ -50,6 +50,22 @@ class RequestService {
             }
         )
     }
+    static sendOtherQuery(query){
+        return new Promise(
+            resolve => {
+                axios.get('/mdx2', {
+                    params: {
+                        query
+                    }
+                }).then(
+                    response => {
+                        console.log(response)
+                        resolve(response.data);
+                    }
+                )
+            }
+        )
+    }
 }
 
 export default RequestService;
