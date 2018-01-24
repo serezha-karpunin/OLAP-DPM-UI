@@ -4,14 +4,18 @@ import {ApplyTheme} from "rambler-ui/theme";
 
 import './App.css';
 import {Route} from "react-router-dom";
+import Header from "./component/Header";
 
 class App extends Component {
     render() {
         return (
-            <div className="app-wrapper">
+            <div>
                 <ApplyTheme>
                     <div>
-                        <Route path='/' component={SettingsPage}/>
+                        <Header/>
+                        <div className="content-wrapper">
+                            <Route path='/' component={SettingsPage}/>
+                        </div>
                     </div>
                 </ApplyTheme>
             </div>

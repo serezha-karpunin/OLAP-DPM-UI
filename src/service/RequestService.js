@@ -2,7 +2,6 @@ import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:8080/';
 // axios.defaults.headers.common['Accept'] = '*';
-
 class RequestService {
     static getSchema() {
         return new Promise(
@@ -40,7 +39,8 @@ class RequestService {
                 axios.get('/mdx', {
                     params: {
                         query
-                    }
+                    },
+                    withCredentials: true
                 }).then(
                     response => {
                         console.log(response)

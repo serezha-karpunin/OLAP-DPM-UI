@@ -29,9 +29,9 @@ export default class MdxQuerySettings extends Component {
             this.setState({queryResult: data});
         });
 
-        RequestService.sendOtherQuery(this.state.query).then(html => {
-            this.setState({html: html})
-        })
+        // RequestService.sendOtherQuery(this.state.query).then(html => {
+        //     this.setState({html: html})
+        // })
     }
 
     render() {
@@ -47,12 +47,14 @@ export default class MdxQuerySettings extends Component {
                         style={{width: '100%'}}
                         textareaStyle={{minHeight: '50px'}}/>
                     <Button
+                        style={{float: 'right'}}
                         type='primary'
                         onClick={this.onClick}>
                         RUN QUERY
                     </Button>
-                    <PivotTable data={queryResult}/>
-                    <textarea value={queryResult} style={{width: '100%', minHeight: '60px'}}/>
+                    <div style={{marginTop: '30px'}}>
+                        <PivotTable data={queryResult}/>
+                    </div>
                     <div dangerouslySetInnerHTML={{__html: this.state.html}}/>
                 </FormGroup>
             </div>

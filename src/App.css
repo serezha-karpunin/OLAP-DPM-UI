@@ -1,5 +1,9 @@
-.app-wrapper {
-  padding: 0 10%;
+.content-wrapper {
+  padding: 5% 10%;
+}
+
+.tab-content{
+  padding: 2%;
 }
 
 
