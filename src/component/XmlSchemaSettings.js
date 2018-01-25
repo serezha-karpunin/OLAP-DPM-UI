@@ -72,7 +72,7 @@ class XmlSchemaSettings extends Component {
                     onChange={this.onChange}
                     placeholder='Schema'
                     style={{width: '100%'}}
-                    textareaStyle={{minHeight: '400px'}}/>
+                    textareaStyle={{minHeight: '200px'}}/>
                     <Button
                         type='primary'
                         onClick={this.onClick}>

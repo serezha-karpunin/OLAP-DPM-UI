@@ -4,6 +4,7 @@ import FormGroup from 'rambler-ui/FormGroup'
 import Button from 'rambler-ui/Button'
 import RequestService from '../service/RequestService';
 import PivotTable from "./PivotTable";
+import CardWrapper from "./CardWrapper";
 
 export default class MdxQuerySettings extends Component {
 
@@ -38,25 +39,27 @@ export default class MdxQuerySettings extends Component {
         const {queryResult} = this.state;
         return (
             <div>
-                <FormGroup>
-                    <Textarea
-                        variation='regular'
-                        value={this.state.query}
-                        onChange={this.onChange}
-                        placeholder='MDX query'
-                        style={{width: '100%'}}
-                        textareaStyle={{minHeight: '50px'}}/>
+                <CardWrapper>
+                    <PivotTable data={queryResult}/>
+                </CardWrapper>
+                <CardWrapper>
+                    <FormGroup>
+                        <Textarea
+                            variation='regular'
+                            value={this.state.query}
+                            onChange={this.onChange}
+                            placeholder='MDX query'
+                            style={{width: '100%'}}
+                            textareaStyle={{minHeight: '50px'}}/>
+                    </FormGroup>
                     <Button
-                        style={{float: 'right'}}
                         type='primary'
+                        size='small'
                         onClick={this.onClick}>
-                        RUN QUERY
+                        Run query
                     </Button>
-                    <div style={{marginTop: '30px'}}>
-                        <PivotTable data={queryResult}/>
-                    </div>
                     <div dangerouslySetInnerHTML={{__html: this.state.html}}/>
-                </FormGroup>
+                </CardWrapper>
             </div>
         );
     };
