@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Textarea from 'rambler-ui/Textarea'
 import FormGroup from 'rambler-ui/FormGroup'
 import Button from 'rambler-ui/Button'
-import RequestService from '../service/RequestService';
+import RequestService from '../../../../service/RequestService';
 import {Snackbar, provideSnackbar} from 'rambler-ui/Snackbar'
 
 class XmlSchemaSettings extends Component {
