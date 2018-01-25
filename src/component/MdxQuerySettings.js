@@ -16,6 +16,7 @@ export default class MdxQuerySettings extends Component {
     constructor() {
         super();
         this.onChange = this.onChange.bind(this);
+        this.onCommandExecute = this.onCommandExecute.bind(this);
         this.onClick = this.onClick.bind(this);
     }
 
@@ -35,12 +36,18 @@ export default class MdxQuerySettings extends Component {
         // })
     }
 
+    onCommandExecute(command){
+        RequestService.executeCommand(command).then(data => {
+            this.setState({queryResult: data});
+        });
+    }
+
     render() {
         const {queryResult} = this.state;
         return (
             <div>
                 <CardWrapper>
-                    <PivotTable data={queryResult}/>
+                    <PivotTable data={queryResult} onCommand={this.onCommandExecute}/>
                 </CardWrapper>
                 <CardWrapper>
                     <FormGroup>

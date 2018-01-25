@@ -66,6 +66,27 @@ class RequestService {
             }
         )
     }
+
+    static executeCommand(command){
+        console.log('THING', command)
+        return new Promise(
+            resolve => {
+
+                axios.request({
+                    method: 'post',
+                    url: '/execute',
+                    withCredentials: true,
+                    data: command
+
+                }).then(
+                    response => {
+                        console.log(response)
+                        resolve(response.data);
+                    }
+                )
+            }
+        )
+    }
 }
 
 export default RequestService;
