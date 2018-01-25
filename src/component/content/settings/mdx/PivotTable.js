@@ -21,7 +21,7 @@ export default class PivotTable extends Component {
 
     renderButtons = (commands) => commands.map(
         (command, index) =>
-            <span key={index} onClick={() => this.props.onCommand(command)}>
+            <span className='command-button' key={index} onClick={() => this.props.onCommand(command)}>
             {IconService.getTableOperationIcon(command.name)}
         </span>
     );

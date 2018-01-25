@@ -26,13 +26,13 @@ export default class MdxQuerySettings extends Component {
 
     onMdxQuerySubmit() {
         RequestService.sendQuery(this.state.mdxQuery).then(data => {
-            this.setState({mdxQueryResult: data});
+            this.setState({mdxQueryResult: data.table, mdxQuery: data.query});
         });
     }
 
     onCommandExecute(command) {
         RequestService.executeCommand(command).then(data => {
-            this.setState({mdxQueryResult: data});
+            this.setState({mdxQueryResult: data.table, mdxQuery: data.query});
         });
     }
 
