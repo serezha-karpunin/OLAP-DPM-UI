@@ -4,6 +4,7 @@ import FormGroup from 'rambler-ui/FormGroup'
 import Button from 'rambler-ui/Button'
 import RequestService from '../../../../service/RequestService';
 import {Snackbar, provideSnackbar} from 'rambler-ui/Snackbar'
+import CardWrapper from "../../../layout/CardWrapper";
 
 class XmlSchemaSettings extends Component {
     state = {
@@ -65,20 +66,23 @@ class XmlSchemaSettings extends Component {
     render() {
         return (
             <div>
-                <FormGroup inline={true} label='Current schema'>
-                <Textarea
-                    variation='regular'
-                    value={this.state.value}
-                    onChange={this.onChange}
-                    placeholder='Schema'
-                    style={{width: '100%'}}
-                    textareaStyle={{minHeight: '200px'}}/>
+                <CardWrapper>
+                    <FormGroup>
+                        <Textarea
+                            variation='regular'
+                            value={this.state.value}
+                            onChange={this.onChange}
+                            placeholder='Schema'
+                            style={{width: '100%'}}
+                            textareaStyle={{minHeight: '200px'}}/>
+                    </FormGroup>
                     <Button
                         type='primary'
+                        size='small'
                         onClick={this.onClick}>
-                        UPDATE
+                        UPDATE SCHEMA
                     </Button>
-                </FormGroup>
+                </CardWrapper>
             </div>
         );
     }
