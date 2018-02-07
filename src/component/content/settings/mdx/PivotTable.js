@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './PivotTable.css'
 import IconService from "../../../../service/IconService";
+import {Source} from "rambler-ui/Typography";
 
 export default class PivotTable extends Component {
 
@@ -42,8 +43,8 @@ export default class PivotTable extends Component {
             );
         } else {
             return (
-                <div>
-                    Execute query to get table
+                <div className='no-table-message'>
+                    <Source>Select hierarchies or execute a query</Source>
                 </div>
             );
         }

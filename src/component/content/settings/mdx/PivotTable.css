@@ -23,3 +23,7 @@
 .command-button:hover {
     cursor: pointer;
 }
+
+.no-table-message{
+    text-align: center;
+}

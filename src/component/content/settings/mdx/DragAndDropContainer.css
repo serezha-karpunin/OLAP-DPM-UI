@@ -1,0 +1,4 @@
+.dnd-content-wrapper{
+    display: flex;
+    flex-direction: column;
+}
