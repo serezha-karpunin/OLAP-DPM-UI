@@ -1,9 +1,46 @@
-.content-wrapper {
-  padding: 5% 10%;
+.app-wrapper{
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+            "header"
+            "app-content";
 }
 
-.tab-content{
-  padding: 2%;
+.header{
+    grid-area: header;
 }
 
+.app-content{
+    grid-area: app-content;
+}
 
+.main-page-content{
+    display: grid;
+    grid-template-rows: 10% 1fr 20%;
+    grid-template-columns: 20% 1fr;
+
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+}
+
+.structure-item{
+    grid-row: 1 / span 3;
+    grid-column: 1/1;
+}
+
+.appearance-settings-item{
+    grid-row: 1/1;
+    grid-column: 2/2;
+}
+
+.pivot-table-item{
+    grid-row: 2/2;
+    grid-column: 2/2;
+}
+
+.mdx-query-editor-item{
+    grid-row: 3/3;
+    grid-column: 2/2;
+}
