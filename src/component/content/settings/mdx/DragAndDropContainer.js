@@ -3,7 +3,6 @@ import CardWrapper from "../../../layout/CardWrapper";
 import DropDownList from "./DragAndDropList";
 import {DragDropContext} from 'react-beautiful-dnd';
 import HierarchyService from "../../../../service/HierarchyService";
-import './DragAndDropContainer.css'
 
 const POSSIBLE_HIERARCHIES = 'possibleHierarchies';
 
@@ -14,8 +13,6 @@ export default class DragAndDropContainer extends Component {
         this.handleDragEnd = this.handleDragEnd.bind(this);
     }
 
-
-    //todo use types to forbid shuffling possible hierarchies
     handleDragEnd(result) {
         const {source, destination, draggableId} = result;
         const {pivotStructure, onDragEnd} = this.props;
@@ -105,7 +102,7 @@ export default class DragAndDropContainer extends Component {
                     <CardWrapper title='Pivot structure'>
                         {columnAxis ?
                             <div>
-                                <h4> Column hierarchies </h4>
+                                <span> Column hierarchies </span>
                                 <DropDownList
                                     droppableId={columnAxis.name}
                                     items={columnAxis.hierarchies}
@@ -114,7 +111,7 @@ export default class DragAndDropContainer extends Component {
                         }
                         {rowAxis ?
                             <div>
-                                <h4> Row hierarchies </h4>
+                                <span> Row hierarchies </span>
                                 <DropDownList
                                     droppableId={rowAxis.name}
                                     items={rowAxis.hierarchies}

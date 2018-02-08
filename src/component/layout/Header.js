@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import './Header.css'
 export default class Header extends Component{
 
     render(){
         return (
             <header className="header">
-
+                header here
             </header>
         );
     }
