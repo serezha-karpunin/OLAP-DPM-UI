@@ -10,7 +10,7 @@ import MdxQueryEditor from "./mdx/MdxQueryEditor";
 export default class MainPage extends Component {
 
     state = {
-        mdxQuery: 'SELECT {[Measures].[Mark]} ON COLUMNS, {[Students].[All]} ON ROWS FROM [Diplomas]',
+        mdxQuery: 'SELECT {[Measures].[Committee mark]} ON COLUMNS, {[Students].[All]} ON ROWS FROM [Diplomas]',
         mdxQueryResult: '',
         appearanceSettings: {
             showDimensionTitle: true,
