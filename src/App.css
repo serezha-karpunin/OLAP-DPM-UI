@@ -60,3 +60,12 @@
 .dnd-content-wrapper > div + div{
     margin-top: 5px;
 }
+
+.dnd-droppable{
+    min-height: 10px;
+    height: 100%;
+}
+
+.icon:hover{
+    cursor: pointer;
+}

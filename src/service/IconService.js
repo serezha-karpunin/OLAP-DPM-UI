@@ -3,6 +3,8 @@ import FaSort from 'react-icons/lib/fa/sort'
 import FaAngleDown from 'react-icons/lib/fa/angle-down'
 import FaAngleUp from 'react-icons/lib/fa/angle-up'
 import FaSiteMap from 'react-icons/lib/fa/sitemap'
+import FaPlusSquareO from 'react-icons/lib/fa/plus-square-o'
+import FaMinusSquareO from 'react-icons/lib/fa/minus-square-o'
 
 class IconService {
     static getTableOperationIcon(name) {
@@ -26,12 +28,20 @@ class IconService {
 
     static getTableStructureIcon(name) {
         const STRUCTURE = {
-            HIERARCHY: 'hierarchy'
+            HIERARCHY: 'hierarchy',
+            MEASURE: 'measure',
+            ADD: 'add',
+            REMOVE: 'remove'
         };
 
         switch (name) {
             case STRUCTURE.HIERARCHY:
                 return <FaSiteMap/>;
+            case STRUCTURE.MEASURE:
+            case STRUCTURE.ADD:
+                return <FaPlusSquareO/>;
+            case STRUCTURE.REMOVE:
+                return <FaMinusSquareO/>;
             default:
                 return name;
         }

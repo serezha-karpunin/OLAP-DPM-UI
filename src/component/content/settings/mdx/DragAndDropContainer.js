@@ -3,6 +3,8 @@ import CardWrapper from "../../../layout/CardWrapper";
 import DropDownList from "./DragAndDropList";
 import {DragDropContext} from 'react-beautiful-dnd';
 import HierarchyService from "../../../../service/HierarchyService";
+import DefaultList from "./DefaultList";
+import IconService from "../../../../service/IconService";
 
 const POSSIBLE_HIERARCHIES = 'possibleHierarchies';
 
@@ -11,36 +13,37 @@ export default class DragAndDropContainer extends Component {
     constructor() {
         super();
         this.handleDragEnd = this.handleDragEnd.bind(this);
+        this.onAddHierarchyClick = this.onAddHierarchyClick.bind(this);
+        this.onRemoveHierarchyClick = this.onRemoveHierarchyClick.bind(this);
+    }
+
+    onAddHierarchyClick(hierarchyName) {
+        const {onDragEnd} = this.props;
+        onDragEnd(HierarchyService
+            .createAddHierarchyAction('ROWS', hierarchyName, 0));
+    }
+
+    onRemoveHierarchyClick(hierarchyName) {
+        const {onDragEnd} = this.props;
+        onDragEnd(HierarchyService
+            .createRemoveHierarchyAction('ROWS', hierarchyName));
+    }
+
+    onAddMeasureClick(measureName) {
+
     }
 
     handleDragEnd(result) {
         const {source, destination, draggableId} = result;
         const {pivotStructure, onDragEnd} = this.props;
 
-        if (source.droppableId === POSSIBLE_HIERARCHIES) {
-            if (!destination || destination.droppableId === source.droppableId) {
-                return;
-            } else {
-                //add action here
-                onDragEnd(HierarchyService
-                    .createAddHierarchyAction(destination.droppableId, draggableId, destination.index));
-            }
-        } else {
-            if (!destination || destination.droppableId === POSSIBLE_HIERARCHIES) {
-                // remove action here
-                onDragEnd(HierarchyService
-                    .createRemoveHierarchyAction(source.droppableId, draggableId))
 
-            } else if (destination.droppableId === source.droppableId) {
-                // move action here
-                onDragEnd(HierarchyService
-                    .createMoveHierarchyAction(destination.droppableId, draggableId, destination.index))
-            } else {
-                // change axis here
-                onDragEnd(HierarchyService.createChangeHierarchyAxisAction(
-                    source.droppableId, destination.droppableId, draggableId, destination.index))
-            }
+        if (destination) {
+            // move action here
+            onDragEnd(HierarchyService
+                .createMoveHierarchyAction(destination.droppableId, draggableId, destination.index))
         }
+
 
         /* if (source.droppableId !== destination.droppableId) {
          const sourceResult = Array.from(pivotStructure[source.droppableId]);
@@ -89,38 +92,53 @@ export default class DragAndDropContainer extends Component {
             }
         } = this.props;
 
+        const hierarchyIcon = IconService.getTableStructureIcon('hierarchy');
+        const addIcon = IconService.getTableStructureIcon('add');
+        const removeIcon = IconService.getTableStructureIcon('remove');
+
         return (
-            <DragDropContext onDragEnd={this.handleDragEnd}>
-                <div className="dnd-content-wrapper">
+            <div className="dnd-content-wrapper">
+                <div>
                     <CardWrapper title='Cube structure'>
-                        {possibleHierarchies ?
-                            <DropDownList
-                                droppableId={POSSIBLE_HIERARCHIES}
+                        {possibleHierarchies
+                            ? <DefaultList
+                                title='Hierarchies'
+                                listIcon={hierarchyIcon}
                                 items={possibleHierarchies}
-                            /> : <div/>}
-                    </CardWrapper>
-                    <CardWrapper title='Pivot structure'>
-                        {columnAxis ?
-                            <div>
-                                <span> Column hierarchies </span>
-                                <DropDownList
-                                    droppableId={columnAxis.name}
-                                    items={columnAxis.hierarchies}
-                                />
-                            </div> : <div/>
-                        }
-                        {rowAxis ?
-                            <div>
-                                <span> Row hierarchies </span>
-                                <DropDownList
-                                    droppableId={rowAxis.name}
-                                    items={rowAxis.hierarchies}
-                                />
-                            </div> : <div/>
-                        }
+                                itemIcon={addIcon}
+                                onItemIconClick={this.onAddHierarchyClick}
+                            />
+                            : <div>nothing</div>}
                     </CardWrapper>
                 </div>
-            </DragDropContext>
+                <div>
+                    <DragDropContext onDragEnd={this.handleDragEnd}>
+                        <CardWrapper title='Pivot structure'>
+                            {columnAxis ?
+                                <div>
+                                    <span> Measures </span>
+                                    <DropDownList
+                                        droppableId={columnAxis.name}
+                                        items={columnAxis.hierarchies}
+                                    />
+                                </div> : <div/>
+                            }
+                            {rowAxis ?
+                                <div>
+                                    <DropDownList
+                                        droppableId={rowAxis.name}
+                                        title='Hierarchies'
+                                        listIcon={hierarchyIcon}
+                                        itemIcon={removeIcon}
+                                        onItemIconClick={this.onRemoveHierarchyClick}
+                                        items={rowAxis.hierarchies}
+                                    />
+                                </div> : <div/>
+                            }
+                        </CardWrapper>
+                    </DragDropContext>
+                </div>
+            </div>
         );
     }
 }
