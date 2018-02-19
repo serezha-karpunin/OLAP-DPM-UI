@@ -2,11 +2,8 @@ import React, {Component} from 'react';
 import CardWrapper from "../../../layout/CardWrapper";
 import DropDownList from "./DragAndDropList";
 import {DragDropContext} from 'react-beautiful-dnd';
-import HierarchyService from "../../../../service/HierarchyService";
 import DefaultList from "./DefaultList";
 import IconService from "../../../../service/IconService";
-
-const POSSIBLE_HIERARCHIES = 'possibleHierarchies';
 
 export default class DragAndDropContainer extends Component {
 
@@ -18,15 +15,15 @@ export default class DragAndDropContainer extends Component {
     }
 
     onAddHierarchyClick(hierarchyName) {
-        const {onDragEnd} = this.props;
-        onDragEnd(HierarchyService
-            .createAddHierarchyAction('ROWS', hierarchyName, 0));
+        this.props.onAddHierarchy(hierarchyName);
     }
 
     onRemoveHierarchyClick(hierarchyName) {
-        const {onDragEnd} = this.props;
-        onDragEnd(HierarchyService
-            .createRemoveHierarchyAction('ROWS', hierarchyName));
+        this.props.onRemoveHierarchy(hierarchyName);
+    }
+
+    onMoveHierarchyClick(hierarchyName, position) {
+        this.props.onMoveHierarchy(hierarchyName, position);
     }
 
     onAddMeasureClick(measureName) {
@@ -34,53 +31,30 @@ export default class DragAndDropContainer extends Component {
     }
 
     handleDragEnd(result) {
-        const {source, destination, draggableId} = result;
-        const {pivotStructure, onDragEnd} = this.props;
+        const {destination, draggableId} = result;
+        const {pivotStructure} = this.props;
 
 
         if (destination) {
-            // move action here
-            onDragEnd(HierarchyService
-                .createMoveHierarchyAction(destination.droppableId, draggableId, destination.index))
+            this.onMoveHierarchyClick(draggableId, destination.index);
         }
 
 
-        /* if (source.droppableId !== destination.droppableId) {
-         const sourceResult = Array.from(pivotStructure[source.droppableId]);
-         const [removedItem] = sourceResult.splice(source.index, 1);
+       /* const updatedArray = Array.from(pivotStructure[destination.droppableId]);
+        const [removedItem] = updatedArray.splice(source.index, 1);
+        updatedArray.splice(destination.index, 0, removedItem);
 
-         const destinationResult = Array.from(pivotStructure[destination.droppableId]);
-         destinationResult.splice(destination.index, 0, removedItem);
+        const updatedPivotStructure = Object.assign(pivotStructure, {
+                [destination.droppableId]: updatedArray
+            }
+        );
+        const change = {
+            hierarchyName: removedItem.name,
+            sourceName: source.droppableId,
+            destinationName: destination.droppableId
+        };
 
-         const updatedPivotStructure = Object.assign(pivotStructure, {
-         [source.droppableId]: sourceResult,
-         [destination.droppableId]: destinationResult,
-         }
-         );
-         const change = {
-         hierarchyName: removedItem.name,
-         sourceName: source.droppableId,
-         destinationName: destination.droppableId
-         };
-
-         onDragEnd(updatedPivotStructure, change);
-         } else {
-         const updatedArray = Array.from(pivotStructure[destination.droppableId]);
-         const [removedItem] = updatedArray.splice(source.index, 1);
-         updatedArray.splice(destination.index, 0, removedItem);
-
-         const updatedPivotStructure = Object.assign(pivotStructure, {
-         [destination.droppableId]: updatedArray
-         }
-         );
-         const change = {
-         hierarchyName: removedItem.name,
-         sourceName: source.droppableId,
-         destinationName: destination.droppableId
-         };
-
-         onDragEnd(updatedPivotStructure, change);
-         }*/
+        onDragEnd(updatedPivotStructure, change);*/
     }
 
     render() {

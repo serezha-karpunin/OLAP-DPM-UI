@@ -26,8 +26,12 @@ export default class MainPage extends Component {
         this.onCommandExecute = this.onCommandExecute.bind(this);
         this.onAppearanceSettingsChange = this.onAppearanceSettingsChange.bind(this);
         this.refreshTable = this.refreshTable.bind(this);
-        this.onDragEnd = this.onDragEnd.bind(this);
         this.handleResponse = this.handleResponse.bind(this);
+
+        this.onAddHierarchy = this.onAddHierarchy.bind(this);
+        this.onRemoveHierarchy = this.onRemoveHierarchy.bind(this);
+        this.onMoveHierarchy = this.onMoveHierarchy.bind(this);
+
     }
 
     onAppearanceSettingsChange(settings) {
@@ -51,21 +55,25 @@ export default class MainPage extends Component {
         this.refreshTable();
     }
 
-    onDragEnd(/*updatedPivotStructure, */{type, action}) {
-        HierarchyService.executeHierarchyAction(
-            type, action, this.state.appearanceSettings
-        ).then(
-            data => this.handleResponse(data)
-        )
+    onAddHierarchy(hierarchyName) {
+        HierarchyService.addHierarchy(hierarchyName, this.state.appearanceSettings)
+            .then(
+                data => this.handleResponse(data)
+            );
+    }
 
-        /*        this.setState({pivotStructure: updatedPivotStructure},
-         () => {
-         HierarchyService.executeHierarchyAction(
-         type, action, this.state.appearanceSettings
-         ).then(
-         data => this.handleResponse(data)
-         )
-         });*/
+    onRemoveHierarchy(hierarchyName) {
+        HierarchyService.removeHierarchy(hierarchyName, this.state.appearanceSettings)
+            .then(
+                data => this.handleResponse(data)
+            );
+    }
+
+    onMoveHierarchy(hierarchyName, position) {
+        HierarchyService.moveHierarchy(hierarchyName, position, this.state.appearanceSettings)
+            .then(
+                data => this.handleResponse(data)
+            );
     }
 
     handleResponse(data) {
@@ -102,7 +110,9 @@ export default class MainPage extends Component {
                 <div className="structure-item">
                     <DragAndDropContainer
                         pivotStructure={pivotStructure}
-                        onDragEnd={this.onDragEnd}
+                        onAddHierarchy={this.onAddHierarchy}
+                        onRemoveHierarchy={this.onRemoveHierarchy}
+                        onMoveHierarchy={this.onMoveHierarchy}
                     />
                 </div>
                 <div className="appearance-settings-item">
@@ -126,7 +136,6 @@ export default class MainPage extends Component {
                 </div>
             </div>
         );
-    }
-    ;
+    };
 }
 

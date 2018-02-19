@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
-import {Tabs, TabsItem} from 'rambler-ui/Tabs'
-import {H1, H2} from 'rambler-ui/Typography';
-import {NavLink, Route, Switch} from 'react-router-dom';
+import {H2} from 'rambler-ui/Typography';
 import XmlSchemaSettings from "./schema/XmlSchemaSettings";
 
 export default class SettingsPage extends Component {
